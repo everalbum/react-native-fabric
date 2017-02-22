@@ -3,8 +3,25 @@
  */
 'use strict';
 
-var { NativeModules, Platform } = require('react-native');
-var SMXCrashlytics = NativeModules.SMXCrashlytics;
+const { Platform } = require('react-native');
+
+const { loadNativeModule, noop } = require('./nativeLoader');
+
+const mock = {
+  crash: noop
+  log: noop
+  logException: noop
+  recordCustomExceptionName: noop
+  recordError: noop
+  setBool: noop
+  setNumber: noop
+  setString: noop
+  setUserEmail: noop
+  setUserIdentifier: noop
+  setUserName: noop
+  throwException: noop
+}
+const SMXCrashlytics = nativeLoader('SMXCrashlytics', mock);
 
 module.exports = {
 
