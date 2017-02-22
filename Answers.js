@@ -3,8 +3,26 @@
  */
 'use strict';
 
-var { NativeModules, Platform } = require('react-native');
-var SMXAnswers = NativeModules.SMXAnswers;
+const { Platform } = require('react-native');
+
+const { loadNativeModule, noop } = require('./nativeLoader');
+
+const mock = {
+  logCustom: noop,
+  logAddToCart: noop,
+  logContentView: noop,
+  logInvite: noop,
+  logLevelStart: noop,
+  logLevelEnd: noop,
+  logLogin: noop,
+  logPurchase: noop,
+  logRating: noop,
+  logSearch: noop,
+  logShare: noop,
+  logSignUp: noop,
+  logStartCheckout: noop,
+}
+const SMXCrashlytics = nativeLoader('SMXCrashlytics', mock);
 
 module.exports = {
   logCustom: function (eventName:string, customAttributes) {
@@ -60,9 +78,7 @@ module.exports = {
 };
 
 function getAsStringOrNull(value:number) {
-  if (value == null)
-    return value;
-  return value + "";
+  return value === null ? value : `${value}`;
 }
-  
+
 
